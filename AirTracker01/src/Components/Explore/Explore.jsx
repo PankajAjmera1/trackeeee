@@ -6,7 +6,7 @@ export default function Explore() {
                 <div className="w-1/2 p-4">
                   <div className=" rounded-lg p-6 ">
                     <img src="https://images.unsplash.com/photo-1592985684811-6c0f98adb014?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Flight" className="w-full mb-4 rounded-lg" />
-                    <p className="text-lg font-bold text-center text-5xl">Track Your Flight</p>
+                    <p className=" font-bold text-center text-5xl">Track Your Flight</p>
                   </div>
                 </div>
                 <div className="w-1/2 p-4 ">

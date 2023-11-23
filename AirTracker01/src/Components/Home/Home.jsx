@@ -9,9 +9,9 @@ export default function Home() {
   const [source,setSource] = useState()
   const [destination,setDestination] = useState()
   const [departure,setDeparture] = useState()
-  const [adults,setAdults] = useState()
-  const [children,setChildren] = useState()
-  const [infants,setInfants] = useState()
+  const [adults,setAdults] = useState('1')
+  const [children,setChildren] = useState('0')
+  const [infants,setInfants] = useState('0')
   const [eclass,seteClass] = useState('Economy')
   const {data,setData} = useData()
   

@@ -9,9 +9,10 @@ import About from './Components/About/About.jsx'
 import Contact from './Components/Contact/Contact.jsx'
 import Explore from './Components/Explore/Explore.jsx'
 import ResulSearch from './Components/Result/ResulSearch.jsx'
-import Signup from './Components/Signup/Signup.jsx'
+// import Signup from './Components/Signup/Signup.jsx'
 import Login from './Components/Login/Login.jsx'
 import { DataProvider } from './data.jsx'
+
 
 // const router = createBrowserRouter([
 //   {
@@ -43,7 +44,7 @@ const router = createBrowserRouter(
       <Route path='result' element={<ResulSearch />} />
       <Route path='contact' element={<Contact />} />
       <Route path='login' element={<Login />} />
-      <Route path='signup' element={<Signup />} />
+      {/* <Route path='signup' element={<Signup />} /> */}
       
     </Route>
   )
