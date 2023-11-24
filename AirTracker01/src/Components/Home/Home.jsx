@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useData } from "../../data";
 import Select from 'react-select';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import { faPlane } from "@fortawesome/free-solid-svg-icons";
 
 export default function Home() {
   const navigate = useNavigate()
@@ -14,6 +17,9 @@ export default function Home() {
   const [infants,setInfants] = useState('0')
   const [eclass,seteClass] = useState('Economy')
   const {data,setData} = useData()
+
+ 
+
   
   
   // const url = `https://api.flightapi.io/onewaytrip/655ce1d263ab81f6dc0023f9/HEL/OUL/2024-05-20/1/0/0/Economy/INR`;
@@ -41,17 +47,24 @@ setData(res.data.legs)
 
 return (
 
-    <div className="flex flex-col md:flex-row bg-white">
+  <div className="flex flex-col md:flex-row bg-white">
       
       <div className="w-full md:w-1/2 p-4 m-7">
         <div className=" rounded-lg p-6 md:w-full ">
           <img src="https://plus.unsplash.com/premium_photo-1679830513990-82a4280f41b4?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Image Card" className="w-full rounded-lg md:w-full lg:3/4 " />
+          <div className="container mx-auto mt-10  text-gray-700">
+          <p className="font-bold text-center text-5xl pt-5 "> 
+          <FontAwesomeIcon icon={faPlane} spin  />Fly More, Pay Less 
+          <FontAwesomeIcon icon={faPlane} spin  /></p>
+          
+          
+          </div>
         </div>
       </div>
 
       {/* Right Section */}
       <div className="  md:p-5 p-4 mt-12 ml-10 ">
-        <div className="bg-white rounded-lg p-4 shadow-xl">
+        <div className="bg-white rounded-lg p-4 shadow-xl border hover:border-orange-700/100">
           <h2 className="text-2xl font-bold mb-4">Flight Search</h2>
           <form onSubmit={handelsubmit}>
             <div className="mb-4">
@@ -96,7 +109,10 @@ return (
           </form>
         </div>
       </div>
+     
     </div>
+        
+    
 
   );
 }
