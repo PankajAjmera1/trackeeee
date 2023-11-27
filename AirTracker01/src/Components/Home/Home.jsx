@@ -6,6 +6,7 @@ import Select from 'react-select';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faPlane } from "@fortawesome/free-solid-svg-icons";
+import TrustSection from "../Cards/TrustSection";
 
 export default function Home() {
   const navigate = useNavigate()
@@ -20,7 +21,7 @@ export default function Home() {
 
  
 
-  
+   // Rahu : 655e1b03de8b4b8c2c7e1116
   
   // const url = `https://api.flightapi.io/onewaytrip/655ce1d263ab81f6dc0023f9/HEL/OUL/2024-05-20/1/0/0/Economy/INR`;
 
@@ -47,7 +48,9 @@ setData(res.data.legs)
 
 return (
 
-  <div className="flex flex-col md:flex-row bg-white">
+  <div className="flex flex-col md:flex-row bg-gray-100">
+
+    
       
       <div className="w-full md:w-1/2 p-4 m-7">
         <div className=" rounded-lg p-6 md:w-full ">
@@ -111,6 +114,7 @@ return (
       </div>
      
     </div>
+    
         
     
 

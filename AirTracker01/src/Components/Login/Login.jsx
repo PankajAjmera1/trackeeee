@@ -1,43 +1,44 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth';
-import { database } from '../Config/firebaseConfig'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { database } from '../Config/firebaseConfig';
 
 export default function Login() {
+  // State variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login,setLogin]= useState(false)
-  const history =useNavigate()
+  const [login, setLogin] = useState(true); // Set initial state to true for login
 
-  const handleSubmit = (event,type) => {
+  // Navigation hook
+  const history = useNavigate();
+
+  // Form submit handler
+  const handleSubmit = (event) => {
     event.preventDefault();
-    const email = event.target.email.value
-    const password = event.target.password.value
-    if(type=="signup"){
-    createUserWithEmailAndPassword(database, email, password)
-      .then((data) => {
-        console.log(data, "authData");
-        history('/')
-      })
-      .catch((error) => {
-        alert("Not a Register User")        
-        setLogin(true)
-      });
-  }
-  else {
-    signInWithEmailAndPassword(database, email, password)
-      .then((data) => {
-        console.log(data, "authData");
-        history("/about");
-      })
-      .catch((err) => {
-        alert(err.code);
-      });
-  }
-};
-  // const handleReset = ()=>{
-  //   history("/about");
-  // }
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    if (login) {
+      signInWithEmailAndPassword(database, email, password)
+        .then((data) => {
+          console.log(data, 'authData');
+          history('/');
+        })
+        .catch((err) => {
+          alert(err.code);
+        });
+    } else {
+      createUserWithEmailAndPassword(database, email, password)
+        .then((data) => {
+          console.log(data, 'authData');
+          alert("Thank You For Sign Up")
+          history('/login');
+        })
+        .catch((error) => {
+          alert(error.code);
+        });
+    }
+  };
 
   return (
     <div
@@ -47,11 +48,12 @@ export default function Login() {
           "url('https://images.unsplash.com/photo-1592985684811-6c0f98adb014?q=80&w=2072&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        backdropFilter: 'blur(10px)',
       }}
     >
       <div className="bg-white p-8 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">{login ? "Sign In" : "SignUp"}</h2>
-        <form onSubmit= {(event) => handleSubmit(event, login ? "signin" : "signup")}>
+        <h2 className="text-2xl font-bold mb-4 text-center">{login ? 'Sign In' : 'Sign Up'}</h2>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               Email
@@ -81,29 +83,25 @@ export default function Login() {
           <button
             type="submit"
             className="w-full bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600"
-          
           >
-            {login ? "Sign In" : "SignUp"}
+            {login ? 'Sign In' : 'Sign Up'}
           </button>
         </form>
-        {/* <p className="mt-4 text-center">
-          Don't have an account?{' '}
-          <p className="text-orange-500 font-bold"> 
-            Sign Up</p>
-          
-        </p> */}
-        <button
-          className="mt-4 text-center hover:bg-orange-800  rounded" 
-          onClick={() => setLogin(false)}
-        >
-          SignUp
-        </button>
-        <button
-          className ="mt-4 text-center"
-          onClick={() => setLogin(true)}
-        >
-          SignIn
-        </button>
+        {login ? (
+          <p className="mt-4 text-center">
+            Not a user?{' '}
+            <button className="text-orange-500" onClick={() => setLogin(false)}>
+              Sign Up
+            </button>
+          </p>
+        ) : (
+          <p className="mt-4 text-center">
+            Already a user?{' '}
+            <button className="text-orange-500" onClick={() => setLogin(true)}>
+              Sign In
+            </button>
+          </p>
+        )}
       </div>
     </div>
   );
