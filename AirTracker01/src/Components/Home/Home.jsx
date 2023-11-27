@@ -9,6 +9,8 @@ import { faPlane } from "@fortawesome/free-solid-svg-icons";
 import TrustSection from "../Cards/TrustSection";
 
 export default function Home() {
+
+
   const navigate = useNavigate()
   const [source,setSource] = useState()
   const [destination,setDestination] = useState()
@@ -18,8 +20,6 @@ export default function Home() {
   const [infants,setInfants] = useState('0')
   const [eclass,seteClass] = useState('Economy')
   const {data,setData} = useData()
-
- 
 
    // Rahu : 655e1b03de8b4b8c2c7e1116
   
@@ -44,7 +44,7 @@ setData(res.data.legs)
 }
   }
 
- 
+
 
 return (
 

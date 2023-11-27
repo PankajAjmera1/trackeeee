@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { database } from '../Config/firebaseConfig';
-
+import {useAuth} from "../../auth.jsx"
 export default function Login() {
   // State variables
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [login, setLogin] = useState(true); // Set initial state to true for login
-
+ 
+const {setAuth} = useAuth();
   // Navigation hook
   const history = useNavigate();
 
@@ -17,28 +17,20 @@ export default function Login() {
     event.preventDefault();
     const email = event.target.email.value;
     const password = event.target.password.value;
-
-    if (login) {
       signInWithEmailAndPassword(database, email, password)
         .then((data) => {
           console.log(data, 'authData');
-          history('/');
+          history('/home');
+          localStorage.setItem("auth", JSON.stringify(data))
+          setAuth(data)
         })
         .catch((err) => {
           alert(err.code);
         });
-    } else {
-      createUserWithEmailAndPassword(database, email, password)
-        .then((data) => {
-          console.log(data, 'authData');
-          alert("Thank You For Sign Up")
-          history('/login');
-        })
-        .catch((error) => {
-          alert(error.code);
-        });
+   
     }
-  };
+  
+
 
   return (
     <div
@@ -52,7 +44,7 @@ export default function Login() {
       }}
     >
       <div className="bg-white p-8 rounded-xl shadow-md">
-        <h2 className="text-2xl font-bold mb-4 text-center">{login ? 'Sign In' : 'Sign Up'}</h2>
+        <h2 className="text-2xl font-bold mb-4 text-center">Sign In</h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
@@ -84,24 +76,30 @@ export default function Login() {
             type="submit"
             className="w-full bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600"
           >
-            {login ? 'Sign In' : 'Sign Up'}
+           Sign In
           </button>
         </form>
-        {login ? (
+        <p className="mt-4 text-center">
+            Not a user?
+           <NavLink className="text-orange-500" to="/signup">
+              Sign Up
+            </NavLink>
+          </p>
+        {/* {login ? (
           <p className="mt-4 text-center">
-            Not a user?{' '}
+            Not a user?
             <button className="text-orange-500" onClick={() => setLogin(false)}>
               Sign Up
             </button>
           </p>
         ) : (
           <p className="mt-4 text-center">
-            Already a user?{' '}
+            Already a user?
             <button className="text-orange-500" onClick={() => setLogin(true)}>
               Sign In
             </button>
           </p>
-        )}
+        )} */}
       </div>
     </div>
   );
